@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * Created by sri on 27/3/15.
  */
 public class kmeans {
-    ArrayList arr; // Array of pixels
+    ArrayList<Pixel> arr; // Array of pixels
 
     int nClust;
     // Number of clusters to be obtained
@@ -20,11 +20,11 @@ public class kmeans {
     // The indexes of each element belonging to a cluster is stored here
     // The internal ArrayList is made up of pixels, defined earlier.
 
-    ArrayList cntrds;
+    ArrayList<Pixel> cntrds;
     // Each element is the centroid of the
     // The centroids of each cluster is stored here initially
 
-    ArrayList nCntrds;
+    ArrayList<Pixel> nCntrds;
     // After running the algorithm once, the next centroids that are calculated are stored here
 
     kmeans(ArrayList pix, int numClust) {
@@ -39,52 +39,62 @@ public class kmeans {
             cluster.add(new ArrayList());
         cntrds = new ArrayList(nClust);
         nCntrds = new ArrayList(nClust);
-        setInitial();
-        initialCalc();
-        clusterify(25);
+        setInitial(); // places the initial centroids
+        initialCalc(); // Places the pixels in the corresponding clusters and recalculates the centroids
+        // cluster will the clusters ready
+        // cntrds will still hold the values of the initial points
+        // nCntrds will have the new centroids for each cluster
+        // clusterify(25);
     }
 
     void setInitial() {
+        // Centroids are placed in the middle of the sample picture
         int offset = 200 / nClust;
         for(int i = 1; i <= nClust; i++) {
-            cntrds.add(new pixel(100, offset * i));
+            cntrds.add(new Pixel(100, offset * i));
             // Sets the centroids initially along a line from the top left to the bottom right
-            nCntrds.add(new pixel(0, 0));
+            nCntrds.add(new Pixel(0, 0));
             // Initialises the next set of centroids to 0
         }
     }
 
     void initialCalc() {
+        // First part goes through all the pixels and places it in the closest centroid's cluster
         for (int i = 0; i < arr.size(); i++) {
-            pixel obj = (pixel)arr.get(i);
-            int count = -1;
-            int dist = Integer.MAX_VALUE;
+            // Goes through all the pixels
+            Pixel obj = arr.get(i);
+            int count = -1; // Used to keep track of the closest centroid
+            int dist = Integer.MAX_VALUE; // Tracks the distance between the current pixel and current centroid
             // count stores the index of the centroid that is closest to current pixel
             for (int j = 0; j < cntrds.size(); j++) {
                 // Checks the distance of each pixel with each centroid
-                //
-                int temp = obj.dist((pixel)cntrds.get(j));
+                int temp = obj.dist(cntrds.get(j));
                 if(temp < dist) {
                     dist = temp;
                     count = j;
                 }
             }
-            ArrayList local = (ArrayList)cluster.get(count);
-            local.add(obj);
+            ArrayList local = (ArrayList)cluster.get(count); // The specific cluster is obtained from the 2D cluster
+            local.add(obj); // The object is added to the inner array
+            // Since the elements are being added for the first time,
+            // We use add, otherwise, we need to make the change to
+            // ArrayListObj.set(index, object);
         }
+        // ***************************************************************
+        // Second part, recalculates the centroids of the clusters.
         for (int i = 0; i < cluster.size(); i++) {
             ArrayList temp = (ArrayList)cluster.get(i);
             int x = 0;
             int y = 0;
             for (int j = 0; j < temp.size(); j++) {
-                pixel t = (pixel)temp.get(j);
+                Pixel t = (Pixel)temp.get(j);
                 x += t.i;
                 y += t.j;
             }
             int size = temp.size();
             if(size == 0)
                 size = 1;
-            pixel centroid = new pixel(x / size, y / size);
+            Pixel centroid = new Pixel(x / size, y / size);
             nCntrds.set(i, centroid);
         }
     }
@@ -105,8 +115,8 @@ public class kmeans {
             Else returns true
          */
         for(int i = 0; i < cntrds.size(); i++) {
-            pixel a = (pixel) cntrds.get(i);
-            pixel b = (pixel) nCntrds.get(i);
+            Pixel a = cntrds.get(i);
+            Pixel b = nCntrds.get(i);
             if (a.isSame(b))
                 continue;
             else
@@ -115,15 +125,18 @@ public class kmeans {
         return true;
     }
 
-    void clusterify(int lim) {
+
+   // void clusterify(int lim) {
+
         /*
             cluster.get(i) contains the points that belong to cluster ci,
-            Taking all the points in that cluster, we find the centroid
-            after finding the centroids, we store the value in nCntrds
+            Taking all the points in that cluster, we find the centroid.
+            After finding the centroids, we store the value in nCntrds
             once that is done, if the centroids are different, we
             continue with the next iteration.
             Else, we have reached saturation
          */
+        /*
         while(lim-- > 0) {
             // Calculates the centroids from cluster
             for(int i = 0; i < cluster.size(); i++) {
@@ -142,6 +155,5 @@ public class kmeans {
                 obj.j = y / size;
             }
         }
-    }
-
+    } */
 }
