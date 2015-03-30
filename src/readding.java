@@ -32,7 +32,7 @@ public class readding {
             obj = (pixel) pix.get(i);
             image.setRGB(obj.i, obj.j, obj.c);
         }
-        int[] col = new int[16];
+//        int[] col = new int[16];
         int[] gCol = new int[16];
         for(int i = 0; i < 16; i++) {
             //col[i] = new Color(0, 0, 255).getRGB();

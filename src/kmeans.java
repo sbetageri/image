@@ -31,6 +31,10 @@ public class kmeans {
         arr = pix;
         nClust = numClust;
         cluster = new ArrayList(nClust);
+        /*
+            Cluster is a 2D array
+            The for loop creates an instance of an empty inner array and places it in the outer array
+         */
         for(int i = 0; i < nClust; i++)
             cluster.add(new ArrayList());
         cntrds = new ArrayList(nClust);
