@@ -7,6 +7,7 @@ public class Cluster {
     ArrayList<Pixel> points; // Stores all the points in the cluster
     // Each element is a Pixel object
     Pixel cntr; // Centroid of all the points in the cluster
+                // The centroid is calculated wrt the points in the cluster
 
     Cluster() {
         points = new ArrayList();
@@ -21,10 +22,11 @@ public class Cluster {
     }
 
     Pixel calcCentroid() {
+        // Calculates the centroids of the current cluster
         Pixel obj = new Pixel(0, 0); // Centroid is initialised to 0, 0
-        int size = 0;
+        int size = points.size();
         // To prevent divide by 0 errors, when the size of the cluster is 0, we change it to 1
-        if(points.size() == 0)
+        if(size == 0)
             size = 1;
         // The centroid formula we are using is
         // Sum of all x co-ordinates divided by number of points
@@ -33,18 +35,18 @@ public class Cluster {
             obj.i += temp.i;
             obj.j += temp.j;
         }
-        obj.i /= obj.i/ size;
-        obj.j /= obj.j/ size;
+        obj.i = obj.i/ size;
+        obj.j = obj.j/ size;
+        cntr = obj;
         return obj;
     }
 
-    Pixel calcCentroid(ArrayList<Pixel> pix) {
-        points = pix;
+    static Pixel calcCentroid(ArrayList<Pixel> pix) {
         Pixel obj = new Pixel(0, 0);
         int size = pix.size();
         size = (size == 0 ? 1 : size);
         for(int i = 0; i < size; i++) {
-            Pixel t = points.get(i);
+            Pixel t = pix.get(i);
             obj.i += t.i;
             obj.j += t.j;
         }

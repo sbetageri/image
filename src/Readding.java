@@ -12,7 +12,7 @@ public class Readding {
     static ArrayList<Pixel> pix = new ArrayList();
     public static void main(String[] args) throws IOException {
         BufferedImage img = null;
-        img = ImageIO.read(new File("/home/sri/p/proj/trial/imgs/a.bmp"));
+        img = ImageIO.read(new File("/home/sri/p/proj/trial/imgs/b.bmp"));
         System.out.println("Height of the image : " + img.getHeight());
         System.out.println("Width of the image : " + img.getWidth());
         int black = 0;
@@ -25,7 +25,7 @@ public class Readding {
                 }
             }
         }
-        kmeans trial = new kmeans(pix, 10);
+        Kmeans trial = new Kmeans(pix, 35);
         BufferedImage image = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
         for(int i = 0; i < black; i++) {
             Pixel obj;
@@ -45,7 +45,7 @@ public class Readding {
             TEMP.display();
             image.setRGB(TEMP.i, TEMP.j, 4, 4, gCol, 0, 4);
         }
-        File op = new File("/home/sri/p/proj/trial/imgs/bmpMAAAAGE.jpg");
+        File op = new File("/home/sri/p/proj/trial/imgs/bmpB.jpg");
         ImageIO.write(image, "jpg", op);
         System.out.println("NUMBER OF CENTROIDS : " + trial.nCntrds.size());
     }
