@@ -23,6 +23,13 @@ public class Pixel {
         j = b;
         c = col;
     }
+
+    Pixel(Pixel obj) {
+        i = obj.i;
+        j = obj.j;
+        c = obj.c;
+    }
+
     public void display() {
         System.out.println(i + " , " + j);
     }
