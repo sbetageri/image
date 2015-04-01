@@ -79,3 +79,9 @@ public class Extract {
         }
     }
 }
+
+
+/*
+    TODO
+    Add code to extract the entire set of characters from a given image
+ */
