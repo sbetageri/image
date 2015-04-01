@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -33,6 +34,12 @@ public class Pixel {
     public void display() {
         System.out.println(i + " , " + j);
     }
+
+//    static boolean isCharPix(Pixel obj) {
+        // Input : Pixel object
+        // Checks if the pixel is part of a character or not, basic color check for now
+        // Output : True if color is black
+//    }
 
     int dist(Pixel b) {
         int x = Math.abs(i - b.i);

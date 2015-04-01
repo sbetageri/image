@@ -1,6 +1,8 @@
 /**
  * Created by sri on 26/3/15.
  */
+import com.sun.javaws.exceptions.ExitException;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.*;
@@ -12,6 +14,7 @@ public class Readding {
     static ArrayList<Pixel> pix = new ArrayList();
     public static void main(String[] args) throws IOException {
         BufferedImage img = null;
+        BufferedImage trialOP = ImageIO.read(new File("/home/sri/p/proj/trial/imgs/b.bmp"));
         img = ImageIO.read(new File("/home/sri/p/proj/trial/imgs/b.bmp"));
         System.out.println("Height of the image : " + img.getHeight());
         System.out.println("Width of the image : " + img.getWidth());
@@ -19,23 +22,33 @@ public class Readding {
         for(int i = 0; i < img.getHeight(); i++) {
             for (int j = 0; j < img.getWidth(); j++) {
                 Color c = new Color(img.getRGB(i, j));
+                trialOP.setRGB(i, j, img.getRGB(i, j));
                 if (c.getRed() == 0 && c.getBlue() == 0 && c.getGreen() == 0) {
                     black++;
                     pix.add(new Pixel(i, j, img.getRGB(i, j)));
                 }
             }
         }
-        Kmeans trial = new Kmeans(pix, 35);
+        Extract charPixels = new Extract(img);
+        Pixel start = new Pixel(0, 0);
+        Pixel end = new Pixel(0, 0);
+        charPixels.findX(0, start, end);
+        charPixels.findY(0, start, end);
+        System.out.println(start.i);
+        System.out.println(start.j);
+        System.out.println(end.i);
+        System.out.println(end.j);
+        Kmeans trial = new Kmeans(pix, 50);
         BufferedImage image = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
         for(int i = 0; i < black; i++) {
             Pixel obj;
             obj = pix.get(i);
             image.setRGB(obj.i, obj.j, obj.c);
         }
-//        int[] col = new int[16];
+        int[] bCol = new int[16];
         int[] gCol = new int[16];
         for(int i = 0; i < 16; i++) {
-            //col[i] = new Color(0, 0, 255).getRGB();
+            bCol[i] = new Color(255, 0,0).getRGB();
             gCol[i] = new Color(0, 255, 0).getRGB();
         }
         // for(int i = 0; i < 10; i++)
@@ -45,8 +58,21 @@ public class Readding {
             TEMP.display();
             image.setRGB(TEMP.i, TEMP.j, 4, 4, gCol, 0, 4);
         }
-        File op = new File("/home/sri/p/proj/trial/imgs/bmpB.jpg");
-        ImageIO.write(image, "jpg", op);
+        for(int i = start.i; i < end.i; i++) {
+            // x
+            trialOP.setRGB(i, start.j, 4, 4, bCol, 0, 4);
+            trialOP.setRGB(i, end.j, 4, 4, bCol, 0, 4);
+        }
+        for(int i = start.j; i < end.j; i++) {
+            trialOP.setRGB(start.i, i, 4, 4, bCol, 0, 4);
+            trialOP.setRGB(end.i, i, 4, 4, bCol, 0, 4);
+        }
+//        trialOP.setRGB(start.i, start.j, 4, 4, bCol, 0, 4);
+//        trialOP.setRGB(end.i, end.j - 18, 4, 4, bCol, 0, 4);
+        File op = new File("/home/sri/p/proj/trial/imgs/kb.jpg");
+        File output = new File("/home/sri/p/proj/trial/imgs/kmeansB.jpg");
+        ImageIO.write(image, "jpg", output);
+        ImageIO.write(trialOP, "jpg", op);
         System.out.println("NUMBER OF CENTROIDS : " + trial.nCntrds.size());
     }
 }

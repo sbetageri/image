@@ -34,7 +34,10 @@ public class Kmeans {
         cntrds = new ArrayList<Pixel>();  // Creates an array of Pixel objects
         nCntrds = new ArrayList<Pixel>(); // Creates an array of Pixel objects
         for(int i = 0; i < numClust; i++) {
-            cntrds.add(new Pixel(100, offset * i)); // Setting the initial centroids along the centre of the image
+//            cntrds.add(new Pixel(pix.get(i * numClust))); // Setting the initial centroids along the centre of the image
+            // The above line reduces the number of centroids that are present at 0,0
+            // But, it skews the centroid locations to one side.
+            cntrds.add(new Pixel(100, offset * i));
             nCntrds.add(new Pixel(0, 0));
         }
         for(int i = 0; i < numClust; i++)
