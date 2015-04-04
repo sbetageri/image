@@ -1,11 +1,10 @@
-import com.sun.javafx.geom.PickRay;
-
 import java.util.ArrayList;
 
 /**
  * Created by sri on 30/3/15.
  */
 public class Kmeans {
+    // Seeding with the centroids of the first few points might be an option
     ArrayList<Pixel> pix;   // Stores the pixel points that has to be clustered
 
     ArrayList<Cluster> group; // Stores the clusters for each point

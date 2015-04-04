@@ -16,12 +16,43 @@ public class Extract {
     ArrayList<PixelCharacter> pChar; // Has list of all pixels
     int numChar;
 
-    Extract(BufferedImage img) {
-        image = img;
-        height = img.getHeight();
-        width = img.getWidth();
+    Extract() throws IOException {
+        image = ImageIO.read(new File("/home/sri/p/proj/trial/imgs/kannada.jpg"));
+        height = image.getHeight();
+        width = image.getWidth();
         numChar = 0;
         pChar = new ArrayList<PixelCharacter>();
+        int[] rCol = new int[4];
+        rCol[0] = (new Color(255, 0, 0)).getRGB();
+        for(int i = 1; i < 4; i++)
+            rCol[i] = rCol[i - 1];
+        for(int i = 0; i < width;i++) {
+            // findY will always begin from 0
+            // This loop extracts individual
+            Pixel start = new Pixel();
+            Pixel end = new Pixel();
+            if(!findX(i, start, end))
+                continue;
+            findY(0, start, end);
+            System.out.println(start.i);
+            System.out.println(start.j);
+            System.out.println(end.i);
+            System.out.println(end.j);
+            if(i < end.i)
+                i = end.i + 1;
+            for(int j = start.i; j < end.i; j++) {
+                // Horizontal lines
+                image.setRGB(j, start.j, 2, 2, rCol, 0, 2);
+                image.setRGB(j, end.j, 2, 2, rCol, 0, 2);
+            }
+            for(int j = start.j; j < end.j; j++) {
+                // Vertical lines
+                image.setRGB(start.i, j, 2, 2, rCol, 0, 2);
+                image.setRGB(end.i, j, 2, 2, rCol, 0, 2);
+            }
+        }
+        File op = new File("/home/sri/p/proj/trial/imgs/WORDOP.jpg");
+        ImageIO.write(image, "jpg", op);
     }
 
     void findY(int stY, Pixel start, Pixel end) {
@@ -48,7 +79,7 @@ public class Extract {
 
     }
 
-    void findX(int stX, Pixel start, Pixel end) {
+    boolean findX(int stX, Pixel start, Pixel end) {
         // Finds the first and last x co-rds where there are black pixels
         // Need to scan along Y
         /*
@@ -63,7 +94,7 @@ public class Extract {
             for (int j = 0; j < height; j++) {
                 // j here is the y co-ordinate
                 Color c = new Color(image.getRGB(i, j));
-                if (c.getRed() == 0 && c.getGreen() == 0 && c.getBlue() == 0) {
+                if (c.getRed() != 255 && c.getGreen() != 255 && c.getBlue() != 255) {
                     if (!flag) {
                         flag = true;
                         start.i = i;
@@ -77,6 +108,7 @@ public class Extract {
                     break;
             }
         }
+        return flag;
     }
 }
 
