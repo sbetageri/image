@@ -82,6 +82,7 @@ public class Extract {
     boolean findX(int stX, Pixel start, Pixel end) {
         // Finds the first and last x co-rds where there are black pixels
         // Need to scan along Y
+        // stX :
         /*
             For each column, it checks if there is a black pixel in it
             If there is a pixel, flag is set to mark that the character has started.
@@ -94,13 +95,13 @@ public class Extract {
             for (int j = 0; j < height; j++) {
                 // j here is the y co-ordinate
                 Color c = new Color(image.getRGB(i, j));
-                if (c.getRed() != 255 && c.getGreen() != 255 && c.getBlue() != 255) {
+                if (c.getRed() == 0 && c.getGreen() == 0 && c.getBlue() == 0) {
                     if (!flag) {
                         flag = true;
                         start.i = i;
                     }
                 }
-                else if(c.getBlue() == 255 && c.getGreen() == 255 && c.getRed() == 255)
+                else if(c != Color.black)
                     white++;
             }
             if (white == height && flag) {
