@@ -24,6 +24,7 @@ public class Readding {
                 Color c = new Color(img.getRGB(i, j));
 //                trialOP.setRGB(i, j, img.getRGB(i, j));
                 if (c.getRed() == 0 && c.getBlue() == 0 && c.getGreen() == 0) {
+                    // IF black, adds the pixel object to pix
                     black++;
                     pix.add(new Pixel(i, j, img.getRGB(i, j)));
                 }

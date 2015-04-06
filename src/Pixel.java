@@ -5,9 +5,9 @@ import java.util.ArrayList;
  * Created by sri on 27/3/15.
  */
 public class Pixel {
-    int i;
-    int j;
-    int c;
+    int i;// stores the x co-ordinate
+    int j;// stores the y co-ordinate
+    int c;// stores the color of the pixel
 
     Pixel() {
         i = j = 0;
@@ -54,13 +54,13 @@ public class Pixel {
         return false;
     }
 
-    int findClosestCentroid(ArrayList<Pixel> pix) {
+    int findClosestCentroid(ArrayList<Pixel> centroids) {
         // Input : List of Centroids
         // Output : Index of the closest centroid
         int distance = Integer.MAX_VALUE;
-        int count = 0;
-        for(int i = 0; i < pix.size(); i++) {
-            int temp = dist(pix.get(i));
+        int count = 0; // Index of the closest centroid
+        for(int i = 0; i < centroids.size(); i++) {
+            int temp = dist(centroids.get(i));
             if(temp < distance) {
                 distance = temp;
                 count = i;
