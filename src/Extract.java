@@ -17,7 +17,7 @@ public class Extract {
     int numChar;
 
     Extract() throws IOException {
-        image = ImageIO.read(new File("/home/sri/p/proj/trial/imgs/kannada.jpg"));
+        image = ImageIO.read(new File("/home/sri/p/proj/trial/imgs/kannadaBW.bmp"));
         height = image.getHeight();
         width = image.getWidth();
         numChar = 0;
@@ -53,16 +53,22 @@ public class Extract {
         }
         File op = new File("/home/sri/p/proj/trial/imgs/WORDOP.jpg");
         ImageIO.write(image, "jpg", op);
+        Color obj = new Color(image.getRGB(124, 84));
+        System.out.println("red : " + obj.getRed());
+        System.out.println("blue : " + obj.getBlue());
+        System.out.println("green: " + obj.getGreen());
     }
 
     void findY(int stY, Pixel start, Pixel end) {
         // Finds the first and last y co-ordinates where there are black pixels
         boolean flag = false;
+        Color a = new Color(0, 0, 0);
         for(int i = stY; i < height; i++) {
             int white = 0;
             for(int j = 0; j < width; j++) {
                 Color c = new Color(image.getRGB(j, i));
                 if(c.getBlue() == 0 && c.getGreen() == 0 && c.getBlue() == 0) {
+                    // Magic conditions, equivalent conditions don't hold
                     if (!flag) {
                         flag = true;
                         start.j = i;
@@ -71,6 +77,7 @@ public class Extract {
                 else
                     white++;
             }
+            System.out.println("White : " + white + " at : " + i);
             if(white == width && flag) {
                 end.j = i;
                 break;

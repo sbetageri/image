@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Readding {
     static ArrayList<Pixel> pix = new ArrayList();
     public static void main(String[] args) throws IOException {
+        ImageBlackNWhite xyz = new ImageBlackNWhite();
         BufferedImage img = null;
 //        BufferedImage trialOP = ImageIO.read(new File("/home/sri/p/proj/trial/imgs/ga.bmp"));
         img = ImageIO.read(new File("/home/sri/p/proj/trial/imgs/gha.jpg"));
