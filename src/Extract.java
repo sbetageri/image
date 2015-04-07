@@ -26,37 +26,24 @@ public class Extract {
         rCol[0] = (new Color(255, 0, 0)).getRGB();
         for(int i = 1; i < 4; i++)
             rCol[i] = rCol[i - 1];
-        for(int i = 0; i < width;i++) {
-            // findY will always begin from 0
-            // This loop extracts individual
+        extractChar(image);
+        for(int i = 0; i < pChar.size(); i++) {
+            System.out.println("PixelCharacter");
+            pChar.get(i).showPixels();
+        }
+    }
+
+    void extractChar(BufferedImage img) {
+        for(int i = 0; i < width; i++) {
             Pixel start = new Pixel();
             Pixel end = new Pixel();
             if(!findX(i, start, end))
                 continue;
             findY(0, start, end);
-            System.out.println(start.i);
-            System.out.println(start.j);
-            System.out.println(end.i);
-            System.out.println(end.j);
             if(i < end.i)
                 i = end.i + 1;
-            for(int j = start.i; j < end.i; j++) {
-                // Horizontal lines
-                image.setRGB(j, start.j, 2, 2, rCol, 0, 2);
-                image.setRGB(j, end.j, 2, 2, rCol, 0, 2);
-            }
-            for(int j = start.j; j < end.j; j++) {
-                // Vertical lines
-                image.setRGB(start.i, j, 2, 2, rCol, 0, 2);
-                image.setRGB(end.i, j, 2, 2, rCol, 0, 2);
-            }
+            pChar.add(new PixelCharacter(start, end));
         }
-        File op = new File("/home/sri/p/proj/trial/imgs/WORDOP.jpg");
-        ImageIO.write(image, "jpg", op);
-        Color obj = new Color(image.getRGB(124, 84));
-        System.out.println("red : " + obj.getRed());
-        System.out.println("blue : " + obj.getBlue());
-        System.out.println("green: " + obj.getGreen());
     }
 
     void findY(int stY, Pixel start, Pixel end) {
@@ -67,7 +54,7 @@ public class Extract {
             int white = 0;
             for(int j = 0; j < width; j++) {
                 Color c = new Color(image.getRGB(j, i));
-                if(c.getBlue() == 0 && c.getGreen() == 0 && c.getBlue() == 0) {
+                if(c.getBlue() == 0 && c.getGreen() == 0 && c.getRed() == 0) {
                     // Magic conditions, equivalent conditions don't hold
                     if (!flag) {
                         flag = true;
@@ -77,7 +64,6 @@ public class Extract {
                 else
                     white++;
             }
-            System.out.println("White : " + white + " at : " + i);
             if(white == width && flag) {
                 end.j = i;
                 break;
@@ -119,9 +105,3 @@ public class Extract {
         return flag;
     }
 }
-
-
-/*
-    TODO
-    Add code to extract the entire set of characters from a given image
- */

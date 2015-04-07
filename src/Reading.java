@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 
-public class Readding {
+public class Reading {
     static ArrayList<Pixel> pix = new ArrayList();
     public static void main(String[] args) throws IOException {
         ImageBlackNWhite xyz = new ImageBlackNWhite();
