@@ -29,6 +29,7 @@ public class Reading {
                     black++;
                     pix.add(new Pixel(i, j, img.getRGB(i, j)));
                 }
+
             }
         }
         Extract charPixels = new Extract();
