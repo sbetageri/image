@@ -33,9 +33,6 @@ public class Reading {
             }
         }
         Extract charPixels = new Extract();
-        PixelCharacter second = charPixels.pChar.get(1);
-        System.out.println("PixelCharacter points");
-        pix = second.getCharPoints(charPixels.getImage());
         /*
         Pixel start = new Pixel(0, 0);
         Pixel end = new Pixel(0, 0);
@@ -55,10 +52,8 @@ public class Reading {
             image.setRGB(obj.i, obj.j, obj.c);
         }
         */
-        int[] bCol = new int[16];
         int[] gCol = new int[16];
         for(int i = 0; i < 16; i++) {
-            bCol[i] = new Color(255, 0,0).getRGB();
             gCol[i] = new Color(0, 255, 0).getRGB();
         }
         // for(int i = 0; i < 10; i++)
