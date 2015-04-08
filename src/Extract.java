@@ -33,6 +33,10 @@ public class Extract {
         }
     }
 
+    BufferedImage getImage() {
+        return image;
+    }
+
     void extractChar(BufferedImage img) {
         for(int i = 0; i < width; i++) {
             Pixel start = new Pixel();

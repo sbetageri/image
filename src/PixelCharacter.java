@@ -33,7 +33,7 @@ public class PixelCharacter {
         for(int i = start.i; i <= end.i; i++) {
             for(int j = start.j; j <= end.j; j++) {
                 Color c = new Color(img.getRGB(i, j));
-                if(c == Color.black) {
+                if(c.getRGB() == Color.BLACK.getRGB()) {
                     obj.add(new Pixel(i, j));
                 }
             }

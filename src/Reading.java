@@ -33,6 +33,9 @@ public class Reading {
             }
         }
         Extract charPixels = new Extract();
+        PixelCharacter second = charPixels.pChar.get(1);
+        System.out.println("PixelCharacter points");
+        pix = second.getCharPoints(charPixels.getImage());
         /*
         Pixel start = new Pixel(0, 0);
         Pixel end = new Pixel(0, 0);
@@ -43,13 +46,15 @@ public class Reading {
         System.out.println(end.i);
         System.out.println(end.j);
         */
-        Kmeans trial = new Kmeans(pix, 50);
+        Kmeans trial = new Kmeans(pix, 60);
         BufferedImage image = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
+        /*
         for(int i = 0; i < black; i++) {
             Pixel obj;
             obj = pix.get(i);
             image.setRGB(obj.i, obj.j, obj.c);
         }
+        */
         int[] bCol = new int[16];
         int[] gCol = new int[16];
         for(int i = 0; i < 16; i++) {
@@ -60,7 +65,7 @@ public class Reading {
            // image.setRGB(20 * i, 20 * i, 4, 4, col, 0, 4);
         for(int i = 0; i < trial.nCntrds.size(); i++) {
             Pixel TEMP = trial.nCntrds.get(i);
-            TEMP.display();
+//            TEMP.display();
             image.setRGB(TEMP.i, TEMP.j, 4, 4, gCol, 0, 4);
         }
         /*
