@@ -17,7 +17,7 @@ public class Extract {
     int numChar;
 
     Extract() throws IOException {
-        image = ImageIO.read(new File("/home/sri/p/proj/trial/imgs/a.bmp"));
+        image = ImageIO.read(new File("/home/sri/p/proj/trial/imgs/gaBW.bmp"));
         OutlineChar trial = new OutlineChar(image);
         height = image.getHeight();
         width = image.getWidth();

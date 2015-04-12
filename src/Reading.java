@@ -16,22 +16,25 @@ public class Reading {
         ImageBlackNWhite xyz = new ImageBlackNWhite();
         BufferedImage img = null;
 //        BufferedImage trialOP = ImageIO.read(new File("/home/sri/p/proj/trial/imgs/ga.bmp"));
-        img = ImageIO.read(new File("/home/sri/p/proj/trial/imgs/gha.jpg"));
+        img = ImageIO.read(new File("/home/sri/p/proj/trial/imgs/gaBORDER.bmp"));
         System.out.println("Height of the image : " + img.getHeight());
         System.out.println("Width of the image : " + img.getWidth());
         int black = 0;
-        for(int i = 0; i < img.getHeight(); i++) {
-            for (int j = 0; j < img.getWidth(); j++) {
+        BufferedImage image = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
+        for(int i = 1; i < img.getHeight() - 1; i++) {
+            for (int j = 1; j < img.getWidth() - 1; j++) {
                 Color c = new Color(img.getRGB(i, j));
 //                trialOP.setRGB(i, j, img.getRGB(i, j));
                 if (c.getRed() == 0 && c.getBlue() == 0 && c.getGreen() == 0) {
                     // IF black, adds the pixel object to pix
                     black++;
                     pix.add(new Pixel(i, j, img.getRGB(i, j)));
+                    image.setRGB(i, j, Color.WHITE.getRGB());
                 }
 
             }
         }
+        Grid g = new Grid(pix, img.getHeight(), img.getWidth());
         Extract charPixels = new Extract();
         /*
         Pixel start = new Pixel(0, 0);
@@ -44,7 +47,6 @@ public class Reading {
         System.out.println(end.j);
         */
         Kmeans trial = new Kmeans(pix, 60);
-        BufferedImage image = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
         /*
         for(int i = 0; i < black; i++) {
             Pixel obj;
@@ -61,7 +63,7 @@ public class Reading {
         for(int i = 0; i < trial.nCntrds.size(); i++) {
             Pixel TEMP = trial.nCntrds.get(i);
 //            TEMP.display();
-            image.setRGB(TEMP.i, TEMP.j, 4, 4, gCol, 0, 4);
+            image.setRGB(TEMP.i, TEMP.j, 1, 1, gCol, 0, 1);
         }
         /*
         for(int i = start.i; i < end.i; i++) {

@@ -9,7 +9,7 @@ import java.io.IOException;
  */
 public class ImageBlackNWhite {
     ImageBlackNWhite() throws IOException {
-        BufferedImage image = ImageIO.read(new File("/home/sri/p/proj/trial/imgs/kannada.jpg"));
+        BufferedImage image = ImageIO.read(new File("/home/sri/p/proj/trial/imgs/border.bmp"));
         BufferedImage bNW = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
         Color white = new Color(255, 255, 255);
         Color black = new Color(0, 0, 0);
@@ -26,7 +26,7 @@ public class ImageBlackNWhite {
                 else
                     bNW.setRGB(j, i, white.getRGB());
             }
-        File op = new File("/home/sri/p/proj/trial/imgs/kannadaBW.bmp");
+        File op = new File("/home/sri/p/proj/trial/imgs/borderBW.bmp");
         ImageIO.write(bNW, "bmp", op);
     }
 }

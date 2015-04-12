@@ -25,7 +25,7 @@ public class OutlineChar {
                     outline.setRGB(j, i, Color.WHITE.getRGB());
                 }
             }
-        File border = new File("/home/sri/p/proj/trial/imgs/border.bmp");
+        File border = new File("/home/sri/p/proj/trial/imgs/gaBORDER.bmp");
         ImageIO.write(outline, "bmp", border);
     }
 
