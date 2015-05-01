@@ -1,4 +1,5 @@
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -17,8 +18,9 @@ public class Extract {
     int numChar;
 
     Extract() throws IOException {
-        image = ImageIO.read(new File("/home/sri/p/proj/trial/imgs/gaBW.bmp"));
+        image = ImageIO.read(new File("/home/sri/p/proj/trial/IMG/gBORDER.bmp"));
         OutlineChar trial = new OutlineChar(image);
+        image = trial.getImage();
         height = image.getHeight();
         width = image.getWidth();
         numChar = 0;
@@ -28,6 +30,16 @@ public class Extract {
         for(int i = 1; i < 4; i++)
             rCol[i] = rCol[i - 1];
         extractChar(image);
+        PixelCharacter p = pChar.get(0);
+        Pixel start = p.start;
+        Pixel end = p.end;
+        image.setRGB(start.i, start.j, 2, 2, rCol, 0, 2);
+        image.setRGB(end.i, end.j, Color.red.getRGB());
+        BufferedImage bimg = new BufferedImage(height * 10, width * 10, BufferedImage.TYPE_INT_RGB);
+        Graphics g = bimg.createGraphics();
+        ImageIcon icon = new ImageIcon();
+        icon.setImage(bimg);
+//        JOptionPane.showMessageDialog(null, icon);
         for(int i = 0; i < pChar.size(); i++) {
             System.out.println("PixelCharacter");
             pChar.get(i).showPixels();

@@ -29,6 +29,10 @@ public class OutlineChar {
         ImageIO.write(outline, "bmp", border);
     }
 
+    BufferedImage getImage() {
+        return image;
+    }
+
     boolean isBoundaryPixel(int i, int j) {
         int[] box = new int[9];
         image.getRGB(i - 1, j - 1, 3, 3, box, 0, 3);

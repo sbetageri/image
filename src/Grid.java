@@ -13,6 +13,7 @@ public class Grid {
 
     void drawGrid(BufferedImage op,int sX, int sY, int gridX, int gridY, int hDist, int vDist){
         // sX and sY are the starting coordinates of the first grid
+        // plots the
         for(int i = 0; i < hDist; i++) {
             op.setRGB(sX + gridX * hDist + i, sY + gridY * vDist, Color.yellow.getRGB());
             op.setRGB(sX + gridX * hDist + i, sY + (gridY + 1) * vDist, Color.yellow.getRGB());
